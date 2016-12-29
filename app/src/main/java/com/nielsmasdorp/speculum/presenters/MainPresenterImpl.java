@@ -13,6 +13,7 @@ import com.nielsmasdorp.speculum.models.Configuration;
 import com.nielsmasdorp.speculum.models.RedditPost;
 import com.nielsmasdorp.speculum.models.Weather;
 import com.nielsmasdorp.speculum.models.YoMommaJoke;
+import com.nielsmasdorp.speculum.models.QuotePost;
 import com.nielsmasdorp.speculum.util.Constants;
 import com.nielsmasdorp.speculum.views.MainView;
 
@@ -122,6 +123,7 @@ public class MainPresenterImpl implements MainPresenter, RecognitionListener, Te
     private void startReddit() {
         interactor.loadTopRedditPost(configuration.getSubreddit(), configuration.getPollingDelay(), new RedditSubscriber());
     }
+
 
     private void startCalendar() {
         interactor.loadCalendarEvents(configuration.getPollingDelay(), new CalendarEventSubscriber());
@@ -242,6 +244,7 @@ public class MainPresenterImpl implements MainPresenter, RecognitionListener, Te
                 interactor.loadYoMommaJoke(new YoMammaJokeSubscriber());
                 setListeningMode(Constants.COMMANDS_SEARCH);
                 break;
+
             case Constants.MAP_PHRASE:
                 speak(Constants.MAP_NOTIFICATION);
                 setListeningMode(Constants.COMMANDS_SEARCH);
@@ -390,6 +393,22 @@ public class MainPresenterImpl implements MainPresenter, RecognitionListener, Te
             view.displayTopRedditPost(redditPost);
         }
     }
+    private final class QuoteSubscriber extends Subscriber<QuotePost> {
+
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            view.showError(e.getMessage());
+        }
+
+        @Override
+        public void onNext(QuotePost quotePost) {
+            view.displayQuotePost(quotePost);
+        }
+    }
 
     private final class CalendarEventSubscriber extends Subscriber<String> {
 
@@ -424,6 +443,7 @@ public class MainPresenterImpl implements MainPresenter, RecognitionListener, Te
             speak(joke.getJoke());
         }
     }
+
 
     private final class AssetSubscriber extends Subscriber<File> {
 
