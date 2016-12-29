@@ -11,6 +11,7 @@ public class Constants {
     public static final String REDDIT_BASE_URL = "https://www.reddit.com/r/";
     public static final String FORECAST_BASE_URL = "https://api.forecast.io/forecast/";
     public static final String YO_MOMMA_BASE_URL = "http://api.yomomma.info/";
+    public static final String QUOTE_BASE_URL = "http://api.forismatic.com/api/1.0/";
     public static final String GOOGLE_MAPS_BASE_URL = "http://maps.google.com/maps/api/geocode/";
     public static final String STATIC_MAPS_URL_FIRST = "https://maps.googleapis.com/maps/api/staticmap?center=";
     public static final String STATIC_MAPS_URL_SECOND = "&zoom=15&size=1000x1000&markers=color:blue%7Clabel:%7C";
@@ -34,6 +35,7 @@ public class Constants {
      * Reddit query
      */
     public static final int REDDIT_LIMIT = 5;
+    public static final int QUOTE_LIMIT = 3;
 
     /**
      * Default settings
@@ -74,9 +76,10 @@ public class Constants {
      */
     public static final String KWS_SEARCH = "wakeup";
     public static final String COMMANDS_SEARCH = "commands";
-    public static final String KEYPHRASE = "hello magic mirror";
+    public static final String KEYPHRASE = "hello mirror";
     public static final String UPDATE_PHRASE = "update";
     public static final String JOKE_PHRASE = "tell me a joke";
+    public static final String QUOTE_PHRASE = "Today's quote";
     public static final String SLEEP_PHRASE = "go to sleep";
     public static final String MAP_PHRASE = "show my location";
 
@@ -85,8 +88,8 @@ public class Constants {
      */
     public static final String UPDATE_NOTIFICATION = "Okay, here is new data.";
     public static final String MAP_NOTIFICATION = "Okay, here is a map.";
-    public static final String SLEEP_NOTIFICATION = "I am going back to sleep, bye bye.";
-    public static final String WAKE_NOTIFICATION = "Hello there. What can I do for you?";
+    public static final String SLEEP_NOTIFICATION = "I am going back to sleep, Nakupenda.";
+    public static final String WAKE_NOTIFICATION = "Hello there Mpenzi. What can I do for you?";
 
     /**
      * Shared preferences identifiers
