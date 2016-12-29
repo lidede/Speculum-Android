@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="forecast_api_key">your forecast io api key</string>
+    <string name="static_maps_api_key">your static maps api key</string>
+</resources>
