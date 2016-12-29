@@ -23,6 +23,7 @@ import com.nielsmasdorp.speculum.R;
 import com.nielsmasdorp.speculum.SpeculumApplication;
 import com.nielsmasdorp.speculum.models.Configuration;
 import com.nielsmasdorp.speculum.models.RedditPost;
+import com.nielsmasdorp.speculum.models.QuotePost;
 import com.nielsmasdorp.speculum.models.Weather;
 import com.nielsmasdorp.speculum.presenters.MainPresenter;
 import com.nielsmasdorp.speculum.util.ASFObjectStore;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     @Nullable @BindView(R.id.weather_stats_layout) LinearLayout llWeatherStatsLayout;
     @Nullable @BindView(R.id.calendar_layout) LinearLayout llCalendarLayout;
     @Nullable @BindView(R.id.reddit_layout) LinearLayout llRedditLayout;
+    @Nullable @BindView(R.id.quote_layout) LinearLayout llQuoteLayout;
     @Nullable @BindView(R.id.iv_forecast_weather1) ImageView ivDayOneIcon;
     @Nullable @BindView(R.id.tv_forecast_temp1) TextView tvDayOneTemperature;
     @Nullable @BindView(R.id.tv_forecast_date1) TextView tvDayOneDate;
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     @Nullable @BindView(R.id.tv_calendar_event) TextView tvCalendarEvent;
     @Nullable @BindView(R.id.tv_reddit_post_title) TextView tvRedditPostTitle;
     @Nullable @BindView(R.id.tv_reddit_post_votes) TextView tvRedditPostVotes;
+    @Nullable @BindView(R.id.tv_quote_post_title) TextView tvQuotePostTitle;
+    @Nullable @BindView(R.id.tv_quote_post_votes) TextView tvQuotePostVotes;
+
 
     @BindString(R.string.old_config_found_snackbar) String oldConfigFound;
     @BindString(R.string.old_config_found_snackbar_back) String getOldConfigFoundBack;
@@ -224,6 +229,15 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         tvRedditPostVotes.setText(redditPost.getUps() + "");
         if (this.llRedditLayout.getVisibility() != View.VISIBLE)
             this.llRedditLayout.setVisibility(View.VISIBLE);
+    }
+    @Override
+    @SuppressWarnings("all")
+
+    public void displayQuotePost(QuotePost quotePost) {
+        tvQuotePostTitle.setText(quotePost.getTitle());
+        tvQuotePostVotes.setText(quotePost.getUps() + "");
+        if (this.llQuoteLayout.getVisibility() != View.VISIBLE)
+            this.llQuoteLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
