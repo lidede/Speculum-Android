@@ -3,6 +3,7 @@ package com.nielsmasdorp.speculum.interactor;
 import com.nielsmasdorp.speculum.models.Weather;
 import com.nielsmasdorp.speculum.models.RedditPost;
 import com.nielsmasdorp.speculum.models.YoMommaJoke;
+import com.nielsmasdorp.speculum.models.QuotePost;
 
 import java.io.File;
 
@@ -20,6 +21,8 @@ public interface MainInteractor {
     void loadWeather(String location, boolean celsius, int updateDelay, String apiKey, Subscriber<Weather> subscriber);
 
     void loadYoMommaJoke(Subscriber<YoMommaJoke> subscriber);
+
+    void loadQuotePost(String quote, int updateDelay, Subscriber<QuotePost> subscriber);
 
     void getAssetsDirForSpeechRecognizer(Subscriber<File> subscriber);
 

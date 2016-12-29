@@ -5,11 +5,13 @@ import android.app.Application;
 import com.nielsmasdorp.speculum.models.RedditPost;
 import com.nielsmasdorp.speculum.models.Weather;
 import com.nielsmasdorp.speculum.models.YoMommaJoke;
+import com.nielsmasdorp.speculum.models.QuotePost;
 import com.nielsmasdorp.speculum.util.Observables;
 import com.nielsmasdorp.speculum.services.ForecastIOService;
 import com.nielsmasdorp.speculum.services.GoogleCalendarService;
 import com.nielsmasdorp.speculum.services.RedditService;
 import com.nielsmasdorp.speculum.services.YoMommaService;
+import com.nielsmasdorp.speculum.services.QuoteService;
 import com.nielsmasdorp.speculum.util.Constants;
 import com.nielsmasdorp.speculum.util.WeatherIconGenerator;
 
@@ -37,6 +39,7 @@ public class MainInteractorImpl implements MainInteractor {
     private GoogleCalendarService googleCalendarService;
     private RedditService redditService;
     private YoMommaService yoMommaService;
+    private QuoteService quoteService;
     private WeatherIconGenerator weatherIconGenerator;
     private CompositeSubscription compositeSubscription;
 
@@ -48,6 +51,7 @@ public class MainInteractorImpl implements MainInteractor {
         this.forecastIOService = forecastIOService;
         this.googleCalendarService = googleCalendarService;
         this.redditService = redditService;
+        this.quoteService = quoteService;
         this.yoMommaService = yoMommaService;
         this.weatherIconGenerator = weatherIconGenerator;
         this.compositeSubscription = new CompositeSubscription();
@@ -101,6 +105,19 @@ public class MainInteractorImpl implements MainInteractor {
                 .subscribeOn(Schedulers.io())
                 .subscribe(subscriber);
     }
+    @Override
+    public void loadQuotePost(String quote, int updateDelay, Subscriber<QuotePost> subscriber) {
+
+        compositeSubscription.add(Observable.interval(0, updateDelay, TimeUnit.MINUTES)
+                .flatMap(ignore -> quoteService.getApi().getQuotePostForQuote(quote, Constants.QUOTE_LIMIT))
+                .flatMap(quoteService::getQuotePost)
+                .retryWhen(Observables.exponentialBackoff(AMOUNT_OF_RETRIES, DELAY_IN_SECONDS, TimeUnit.SECONDS))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(subscriber));
+    }
+
 
     @Override
     public void getAssetsDirForSpeechRecognizer(Subscriber<File> subscriber) {
